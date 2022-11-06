@@ -458,6 +458,9 @@ int main() {
   };
 
   for (;;) {
+    // Display the prompt
+    printf("> ");
+
     // Read a line in from stdin
     read(&parser);
 
