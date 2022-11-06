@@ -1,6 +1,20 @@
-### asciidraw 🎨
+## asciidraw 🎨
 
 **asciidraw** is a program that lets you draw ascii shapes in your terminal.
+
+#### Launching the interpreter
+
+You can compile **asciidraw** using the standard C compiler `gcc`, and then
+invoking the resulting binary to launch the interpreter:
+
+```bash
+$ gcc -o asciidraw asciidraw.c
+$ ./asciidraw
+```
+
+#### Example
+
+Below is a sample asciidraw program:
 
 ```
 GRID 20,20
@@ -10,7 +24,7 @@ DISPLAY
 END
 ```
 
-Will produce the beautiful:
+That will produce the following beautiful result:
 
 ```
 9 *
