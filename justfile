@@ -3,13 +3,16 @@ set dotenv-load
 export EDITOR := 'vim'
 
 alias r := run
-alias c := clean
+alias c := compile
 
 default:
   just --list
 
-run:
+compile:
   gcc -o asciidraw asciidraw.c
+
+run:
+  @just compile
   ./asciidraw
   @just clean
 

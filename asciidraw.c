@@ -1,6 +1,7 @@
 #include <ctype.h>
 #include <limits.h>
 #include <math.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -143,7 +144,7 @@ void bresenham_line(
   int y2,
   int dx,
   int dy,
-  int decide
+  bool decide
 ) {
   int pk = 2 * dy - dx;
 
@@ -323,8 +324,8 @@ void line(struct Grid *grid, int args[]) {
   int dx = abs(x2 - x1), dy = abs(y2 - y1);
 
   dx > dy ?
-    bresenham_line(grid, x1, y1, x2, y2, dx, dy, 0) :
-    bresenham_line(grid, y1, x1, y2, x2, dy, dx, 1);
+    bresenham_line(grid, x1, y1, x2, y2, dx, dy, false) :
+    bresenham_line(grid, y1, x1, y2, x2, dy, dx, true);
 }
 
 /*
