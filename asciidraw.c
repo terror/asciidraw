@@ -24,6 +24,7 @@ enum Command {
   GRID,
   INVALID,
   LINE,
+  POINT,
   RECTANGLE
 };
 
@@ -42,6 +43,7 @@ const static struct {
   { END,       "END"       },
   { GRID,      "GRID"      },
   { LINE,      "LINE"      },
+  { POINT,     "POINT"     },
   { RECTANGLE, "RECTANGLE" }
 };
 
@@ -323,6 +325,23 @@ void line(struct Grid *grid, int args[]) {
 }
 
 /*
+ * Handler for the `POINT` operation.
+ *
+ * @param grid A pointer to a grid.
+ * @param args [x, y, ..].
+ */
+void point(struct Grid *grid, int args[]) {
+  int x = args[0], y = args[1];
+
+  if (!grid->initialized) {
+    printf("error: Grid isn't initialized\n");
+    return;
+  }
+
+  plot(grid, x, y);
+}
+
+/*
  * Handler for the `RECTANGLE` operation.
  *
  * @param grid A pointer to a grid.
@@ -453,6 +472,9 @@ void eval(struct Interpreter *i) {
       break;
     case LINE:
       line(&i->grid, i->op.args);
+      break;
+    case POINT:
+      point(&i->grid, i->op.args);
       break;
     case RECTANGLE:
       rectangle(&i->grid, i->op.args);
