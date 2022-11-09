@@ -9,9 +9,9 @@ default:
   just --list
 
 run:
-	gcc -o asciidraw asciidraw.c
-	./asciidraw
-	@just clean
+  gcc -o asciidraw asciidraw.c
+  ./asciidraw
+  @just clean
 
 clean:
-	rm -rf a.out
+  rm -rf a.out
