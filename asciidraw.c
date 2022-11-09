@@ -53,11 +53,14 @@ const static struct {
  * @param str The string to associate with a `Command` enum.
  * @return The correspoding `Command` enum.
  */
-enum Command command_from_string(const char *str) {
+enum Command command_from_string(char *str) {
   int size = (
     sizeof(COMMAND_STRING) /
     sizeof(COMMAND_STRING[0])
   );
+
+  for (int i = 0; i < strlen(str); ++i)
+    str[i] = toupper(str[i]);
 
   for (int i = 0; i < size; ++i)
     if (!strcmp(str, COMMAND_STRING[i].str))
