@@ -18,12 +18,13 @@ const int ARGS_MAX = 4;
 enum Command {
   CHAR,
   CIRCLE,
+  CLEAR,
   DISPLAY,
   END,
   GRID,
   INVALID,
   LINE,
-  RECTANGLE,
+  RECTANGLE
 };
 
 /*
@@ -36,6 +37,7 @@ const static struct {
 } COMMAND_STRING [] = {
   { CHAR,      "CHAR"      },
   { CIRCLE,    "CIRCLE"    },
+  { CLEAR,     "CLEAR"     },
   { DISPLAY,   "DISPLAY"   },
   { END,       "END"       },
   { GRID,      "GRID"      },
@@ -231,6 +233,17 @@ void circle(struct Grid *grid, int args[]) {
 }
 
 /*
+ * Handler for the `CLEAR` operation.
+ *
+ * @param grid A pointer to a grid
+ */
+void clear(struct Grid *grid) {
+  for (int i = 0; i < grid->height; ++i)
+    for (int j = 0; j < grid->width; ++j)
+      grid->state[i][j] = ' ';
+}
+
+/*
  * Handler for the `DISPLAY` operation.
  *
  * @param grid A grid struct.
@@ -243,10 +256,10 @@ void display(struct Grid grid) {
     return;
   }
 
-  for (int i = 0; i < grid.height; ++i) {
+  for (int i = 0; i < grid.width; ++i) {
     printf("%d ", ((9 - i) % wrap + wrap) % wrap);
-    for (int j = 0; j < grid.width; ++j)
-      printf("%c", grid.state[i][j]);
+    for (int j = 0; j < grid.height; ++j)
+      printf("%c", grid.state[j][i]);
     printf("\n");
   }
 
@@ -423,6 +436,9 @@ void eval(struct Interpreter *i) {
       break;
     case CIRCLE:
       circle(&i->grid, i->op.args);
+      break;
+    case CLEAR:
+      clear(&i->grid);
       break;
     case DISPLAY:
       display(i->grid);
