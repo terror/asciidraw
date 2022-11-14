@@ -359,6 +359,18 @@ void rectangle(struct Grid *grid, int args[]) {
     return;
   }
 
+  if (x1 > x2) {
+    int temp = x1;
+    x1 = x2;
+    x2 = temp;
+  }
+
+  if (y1 > y2) {
+    int temp = y1;
+    y1 = y2;
+    y2 = temp;
+  }
+
   line(grid, (int[]) { x1, y1, x1 + abs(x2 - x1), y1 });
   line(grid, (int[]) { x1 + abs(x2 - x1), y1, x2, y2 });
   line(grid, (int[]) { x2, y2, x1, y1 + abs(y2 - y1) });
@@ -511,6 +523,5 @@ int main() {
 
     // Evaluate the currently loaded operation
     eval(&interpreter);
-
   }
 }
