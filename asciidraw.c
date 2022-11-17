@@ -182,12 +182,12 @@ void bresenham_circle(
   int x = 0, y = radius, d = 3 - 2 * radius;
 
   plot(grid, xc + x, yc + y);
-  plot(grid, xc - x, yc + y);
   plot(grid, xc + x, yc - y);
-  plot(grid, xc - x, yc - y);
   plot(grid, xc + y, yc + x);
-  plot(grid, xc - y, yc + x);
   plot(grid, xc + y, yc - x);
+  plot(grid, xc - x, yc + y);
+  plot(grid, xc - x, yc - y);
+  plot(grid, xc - y, yc + x);
   plot(grid, xc - y, yc - x);
 
   while (y >= x) {
@@ -201,12 +201,12 @@ void bresenham_circle(
     }
 
     plot(grid, xc + x, yc + y);
-    plot(grid, xc - x, yc + y);
     plot(grid, xc + x, yc - y);
-    plot(grid, xc - x, yc - y);
     plot(grid, xc + y, yc + x);
-    plot(grid, xc - y, yc + x);
     plot(grid, xc + y, yc - x);
+    plot(grid, xc - x, yc + y);
+    plot(grid, xc - x, yc - y);
+    plot(grid, xc - y, yc + x);
     plot(grid, xc - y, yc - x);
   }
 }
@@ -263,7 +263,7 @@ void display(struct Grid grid) {
   }
 
   for (int i = grid.height - 1; i >= 0; --i) {
-    printf("%d ", ((9 - i) % wrap + wrap) % wrap);
+    printf("%d ", ((i - wrap) % wrap + wrap) % wrap);
     for (int j = 0; j < grid.width; ++j)
       printf("%c", grid.state[i][j]);
     printf("\n");
@@ -371,10 +371,10 @@ void rectangle(struct Grid *grid, int args[]) {
     y2 = temp;
   }
 
-  line(grid, (int[]) { x1, y1, x1 + abs(x2 - x1), y1 });
   line(grid, (int[]) { x1 + abs(x2 - x1), y1, x2, y2 });
-  line(grid, (int[]) { x2, y2, x1, y1 + abs(y2 - y1) });
   line(grid, (int[]) { x1, y1 + abs(y2 - y1), x1, y1 });
+  line(grid, (int[]) { x1, y1, x1 + abs(x2 - x1), y1 });
+  line(grid, (int[]) { x2, y2, x1, y1 + abs(y2 - y1) });
 }
 
 /*
@@ -465,7 +465,7 @@ void load(struct Interpreter *i, struct Operation op) {
  * @param i A pointer to an interpreter.
  */
 void eval(struct Interpreter *i) {
-  switch(i->op.cmd) {
+  switch (i->op.cmd) {
     case CHAR:
       character(&i->grid, i->op.args);
       break;
