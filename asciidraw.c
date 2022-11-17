@@ -262,17 +262,17 @@ void display(struct Grid grid) {
     return;
   }
 
-  for (int i = 0; i < grid.width; ++i) {
+  for (int i = grid.height - 1; i >= 0; --i) {
     printf("%d ", ((9 - i) % wrap + wrap) % wrap);
-    for (int j = 0; j < grid.height; ++j)
-      printf("%c", grid.state[j][i]);
+    for (int j = 0; j < grid.width; ++j)
+      printf("%c", grid.state[i][j]);
     printf("\n");
   }
 
   printf(" ");
 
   for (int i = 0; i < grid.width; ++i)
-    printf("%d", ((9 - i) % wrap + wrap) % wrap);
+    printf("%d", ((i - wrap) % wrap + wrap) % wrap);
 
   printf("\n");
 }
